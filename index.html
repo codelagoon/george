@@ -717,6 +717,10 @@
 
         /* Mobile bottom sheet overlays */
         @media (max-width: 480px) {
+            body {
+                justify-content: center;
+            }
+
             .overlay {
                 align-items: flex-end;
             }
@@ -736,11 +740,13 @@
             }
 
             .container {
-                padding: 40px 20px 30px;
+                padding: 40px 20px;
+                justify-content: center;
+                min-height: auto;
             }
 
             .timestamp {
-                margin-bottom: 120px;
+                margin-bottom: 60px;
             }
 
             .logo {
