@@ -25,6 +25,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
             opacity: 0;
             animation: fadeIn 0.8s ease forwards;
@@ -40,7 +41,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px 40px;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
         .logo {
@@ -52,7 +54,7 @@
         .timestamp {
             font-size: 11px;
             letter-spacing: 0.5px;
-            margin-bottom: 180px;
+            margin-bottom: 80px;
         }
 
         .nav {
@@ -717,10 +719,6 @@
 
         /* Mobile bottom sheet overlays */
         @media (max-width: 480px) {
-            body {
-                justify-content: center;
-            }
-
             .overlay {
                 align-items: flex-end;
             }
@@ -739,14 +737,8 @@
                 padding: 8px;
             }
 
-            .container {
-                padding: 40px 20px;
-                justify-content: center;
-                min-height: auto;
-            }
-
             .timestamp {
-                margin-bottom: 60px;
+                margin-bottom: 40px;
             }
 
             .logo {
