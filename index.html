@@ -399,85 +399,97 @@
 
         /* System theme adaptation */
         @media (prefers-color-scheme: light) {
-            body:not(.dark-mode) {
+            body {
                 background-color: #f5f5f5;
                 color: #1a1a1a;
             }
-            
-            body:not(.dark-mode) .nav a,
-            body:not(.dark-mode) .footer a,
-            body:not(.dark-mode) .contact-link,
-            body:not(.dark-mode) .overlay-close {
+
+            body .nav a,
+            body .footer a,
+            body .contact-link,
+            body .overlay-close {
                 color: #1a1a1a;
             }
 
-            body:not(.dark-mode) .nav a:hover,
-            body:not(.dark-mode) .footer a:hover {
+            body .nav a:hover,
+            body .footer a:hover {
                 opacity: 0.6;
             }
 
-            body:not(.dark-mode) .nav-preview,
-            body:not(.dark-mode) .footer-reveal,
-            body:not(.dark-mode) .contact-label,
-            body:not(.dark-mode) .exp-time,
-            body:not(.dark-mode) .project-status,
-            body:not(.dark-mode) .log-date,
-            body:not(.dark-mode) .overlay h2 {
+            body .nav-preview,
+            body .footer-reveal,
+            body .contact-label,
+            body .exp-time,
+            body .project-status,
+            body .log-date,
+            body .overlay h2 {
                 color: #8a8a8a;
             }
 
-            body:not(.dark-mode) .overlay {
+            body .overlay {
                 background: rgba(245, 245, 245, 0.98);
             }
 
-            body:not(.dark-mode) .overlay-content {
+            body .overlay-content {
                 background: #f5f5f5;
             }
 
-            body:not(.dark-mode) .social-icons svg {
+            body .social-icons svg {
                 fill: #8a8a8a;
                 stroke: #8a8a8a;
             }
 
-            body:not(.dark-mode) .social-icons a:hover svg,
-            body:not(.dark-mode) .social-icons a:active svg {
+            body .social-icons a:hover svg,
+            body .social-icons a:active svg {
                 fill: #1a1a1a;
                 stroke: #1a1a1a;
             }
 
-            body:not(.dark-mode) #logo-panel {
+            body #logo-panel {
                 background: #ffffff;
                 border-color: #e0e0e0;
             }
 
-            body:not(.dark-mode) .logo-panel-line span {
+            body .logo-panel-line span {
                 color: #1a1a1a;
             }
 
-            body:not(.dark-mode) .now-shelf {
+            body .now-shelf {
                 border-color: #e0e0e0;
             }
 
-            body:not(.dark-mode) .shelf-value {
+            body .shelf-value {
                 color: #1a1a1a;
             }
 
-            body:not(.dark-mode) .copy-feedback {
+            body .copy-feedback {
                 background: #e0e0e0;
                 color: #1a1a1a;
             }
 
-            body:not(.dark-mode) .nav-item.last-visited::before {
+            body .nav-item.last-visited::before {
                 background: #1a1a1a;
             }
 
-            body:not(.dark-mode) .external-link {
+            body .external-link {
                 color: #1a1a1a;
             }
 
-            body:not(.dark-mode) .link-hint,
-            body:not(.dark-mode) .internal-label {
+            body .link-hint,
+            body .internal-label {
                 color: #8a8a8a;
+            }
+
+            body .overlay-body,
+            body .exp-role,
+            body .thesis-statement,
+            body .project-name,
+            body .log-text {
+                color: #1a1a1a;
+            }
+
+            body .overlay-close:hover {
+                color: #1a1a1a;
             }
         }
 
@@ -534,6 +546,18 @@
         body.light-mode .link-hint,
         body.light-mode .internal-label {
             color: #8a8a8a;
+        }
+
+        body.light-mode .overlay-body,
+        body.light-mode .exp-role,
+        body.light-mode .thesis-statement,
+        body.light-mode .project-name,
+        body.light-mode .log-text {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .overlay-close:hover {
+            color: #1a1a1a;
         }
 
         /* Section memory marker */
@@ -741,6 +765,35 @@
                 padding-top: 40px;
             }
         }
+
+        /* Grain texture overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        body.light-mode::before {
+            opacity: 0.04;
+        }
+
+        /* Flash overlay for logo click */
+        .flash-overlay {
+            position: fixed;
+            inset: 0;
+            background: #cc0000;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 600ms ease;
+        }
+
+        .flash-overlay.fade-out {
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -829,9 +882,10 @@
 
     <!-- Hidden Logo Panel (long-press to reveal) -->
     <div id="logo-panel">
-        <div class="logo-panel-line">currently building: <span>echelon</span></div>
-        <div class="logo-panel-line">thinking about: <span>ownership + leverage</span></div>
-        <div class="logo-panel-line">mode: <span>focused</span></div>
+        <div class="logo-panel-line">woke up at 5am to do this.</div>
+        <div class="logo-panel-line"></div>
+        <div class="logo-panel-line">(it was worth it)</div>
+        <div class="logo-panel-line">(maybe)</div>
     </div>
 
     <!-- Now Panel Overlay -->
@@ -894,7 +948,7 @@
                 <div class="exp-time">Sep 2025 — Present</div>
             </div>
             <div class="exp-item">
-                <div class="exp-role">Financial Literacy & Youth Business Club <span class="internal-label">internal</span></div>
+                <div class="exp-role">Financial Literacy & Youth Business Club <span class="internal-label">(at school)</span></div>
                 <div class="exp-desc">Founder and president of a school-based club focused on investment fundamentals, budgeting, and entrepreneurship. Built the group to 72 active members and organized guest speakers and finance-facing events.</div>
                 <div class="exp-time">Sep 2025 — Present</div>
             </div>
@@ -924,6 +978,7 @@
                 <p>Most students who want to work in finance do not get access to serious training early. They may learn the vocabulary, but not the standard behind it. Echelon Equity was started to narrow that gap.</p>
                 <p>The organization is structured around equity research, technical analysis, and macro policy. Work is reviewed closely. Feedback is direct. The point is to make rigor normal before people ever enter those rooms.</p>
                 <p>It is less about performance than preparation: learning how to read carefully, model clearly, and think with discipline about companies, markets, and capital.</p>
+                <p><a href="https://echelonequity.co" class="external-link" target="_blank" rel="noopener noreferrer">check out our website! <span class="link-hint">open -></span></a></p>
             </div>
         </div>
     </div>
@@ -943,8 +998,11 @@
                 <div class="contact-item">
                     <a href="https://open.spotify.com/user/3146iyr56mjdmr4ieuimkoi2ksam" class="contact-link external-link" target="_blank" rel="noopener noreferrer">Spotify <span class="link-hint">open -></span></a>
                 </div>
+                <div class="contact-item">
+                    <a href="https://cal.com/georgetet/lets-talk" class="contact-link external-link" target="_blank" rel="noopener noreferrer">book a meeting <span class="link-hint">open -></span></a>
+                </div>
             </div>
-            <div class="contact-note">LinkedIn is best.</div>
+            <div class="contact-note">LinkedIn is best. Cal.com for scheduling.</div>
         </div>
     </div>
 
@@ -1053,11 +1111,8 @@
                 // User has manually selected a preference
                 if (savedTheme === 'light') {
                     document.body.classList.add('light-mode');
-                    document.body.classList.remove('dark-mode');
-                } else {
-                    document.body.classList.add('dark-mode');
-                    document.body.classList.remove('light-mode');
                 }
+                // 'dark' preference needs no class (default is dark)
             } else {
                 // Follow system preference
                 const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -1074,11 +1129,9 @@
             
             if (isCurrentlyLight) {
                 document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
                 localStorage.setItem(THEME_KEY, 'dark');
             } else {
                 document.body.classList.add('light-mode');
-                document.body.classList.remove('dark-mode');
                 localStorage.setItem(THEME_KEY, 'light');
             }
         }
@@ -1146,6 +1199,29 @@
         document.addEventListener('click', function(e) {
             if (!logo.contains(e.target) && !logoPanel.contains(e.target)) {
                 logoPanel.classList.remove('active');
+            }
+        });
+
+        // Red flash on logo click
+        logo.addEventListener('click', function(e) {
+            // Only trigger on short clicks, not long-press
+            if (!logoPanel.classList.contains('active')) {
+                const flash = document.createElement('div');
+                flash.className = 'flash-overlay';
+                document.body.appendChild(flash);
+
+                // Force reflow to ensure transition works
+                flash.offsetHeight;
+
+                // Start fade out
+                requestAnimationFrame(() => {
+                    flash.classList.add('fade-out');
+                });
+
+                // Remove from DOM after transition
+                setTimeout(() => {
+                    flash.remove();
+                }, 600);
             }
         });
 
