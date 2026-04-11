@@ -1026,14 +1026,36 @@
         <a class="overlay-close" onclick="closeOverlay('whatsnew')" tabindex="0">&times;</a>
         <div class="overlay-content">
             <h2>whats new</h2>
-            <div class="log-entry">
-                <div class="log-date">Apr 6 2026</div>
-                <div class="log-text">content coming soon!</div>
+            <div id="whatsnew-container">
+                <!-- Content will be loaded from JSON -->
+                <div class="log-entry">
+                    <div class="log-date">loading...</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // What's New Content Management
+        const updates = [
+            { date: 'Apr 11 2026', text: 'Removed grain texture and added Avarent startup to experiences.' },
+            { date: 'Apr 6 2026', text: 'Initial site launch and structure setup.' }
+        ];
+
+        function renderUpdates() {
+            const container = document.getElementById('whatsnew-container');
+            if (!container) return;
+            
+            container.innerHTML = updates.map(update => `
+                <div class="log-entry">
+                    <div class="log-date">${update.date}</div>
+                    <div class="log-text">${update.text}</div>
+                </div>
+            `).join('');
+        }
+
+        renderUpdates();
+
         // Live timestamp
         function updateTimestamp() {
             const now = new Date();
